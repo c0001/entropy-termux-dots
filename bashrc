@@ -1,3 +1,12 @@
+_ehbash_func_prev_errp () {
+    [[ $? -ne 0 ]]
+}
+
+_ehbash_func_err ()
+{
+    echo "\e[031m$*\e[0m"
+}
+
 alias ll='ls -al'
 alias proxy-test="curl -I 'https://www.google.com'"
 
@@ -63,4 +72,13 @@ export PATH="${HOME}/projects/pyenv/bin:${PATH}"
 export PYENV_ROOT="${HOME}/projects/pyenv"
 if command -v pyenv &>/dev/null ; then
     eval "$(pyenv init -)"
+fi
+
+if command -v zoxide &>/dev/null ; then
+    eval "$(zoxide init bash)"
+fi
+
+if command -v fzf &>/dev/null ; then
+    . /data/data/com.termux/files/usr/share/fzf/key-bindings.bash || \
+        _ehbash_func_err "init fzf bash integration fatal"
 fi
