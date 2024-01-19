@@ -7,6 +7,13 @@ _ehbash_func_err ()
     echo "\e[031m$*\e[0m"
 }
 
+_ehbash_func_nerr ()
+{
+    if _ehbash_func_prev_errp ; then
+        echo "\e[031m$*\e[0m"
+    fi
+}
+
 alias ll='ls -al'
 alias proxy-test="curl -I 'https://www.google.com'"
 
@@ -65,6 +72,7 @@ function ehbash_reload_bashrc () {
 }
 
 export PATH="${HOME}/.local/bin:${PATH}"
+export PATH="${HOME}/.cargo/bin:${PATH}"
 
 # ========== dev ==========
 # pyenv
@@ -81,4 +89,10 @@ fi
 if command -v fzf &>/dev/null ; then
     . /data/data/com.termux/files/usr/share/fzf/key-bindings.bash || \
         _ehbash_func_err "init fzf bash integration fatal"
+fi
+
+if command -v navi &>/dev/null ; then
+    eval "$(navi widget bash)"
+    _ehbash_func_nerr \
+        "navi env initial with fatal"
 fi
