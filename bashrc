@@ -16,6 +16,8 @@ _ehbash_func_nerr ()
 
 alias ll='ls -al'
 alias proxy-test="curl -I 'https://www.google.com'"
+alias gst='git status'
+alias glog='git log'
 
 declare ehvar_proxyp=''
 function ehpset () {
