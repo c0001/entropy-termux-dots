@@ -19,6 +19,7 @@ alias ll='ls -al'
 alias proxy-test="curl -I 'https://www.google.com'"
 alias gst='git status'
 alias glog='git log'
+alias eemacs='emacsclient -t'
 
 declare ehvar_proxyp=''
 function ehpset () {
