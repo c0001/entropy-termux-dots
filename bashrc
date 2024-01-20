@@ -111,6 +111,17 @@ function ehbash_sshd_init () {
 export PATH="${HOME}/.local/bin:${PATH}"
 export PATH="${HOME}/.cargo/bin:${PATH}"
 
+# ========== completion ==========
+
+# yt-dlp
+declare ehvar_ytdlp_bashcmp_f="\
+/data/data/com.termux/files/home/.local/others/\
+yt-dlp/.venv/share/bash-completion/completions/yt-dlp"
+
+if [[ -f $ehvar_ytdlp_bashcmp_f ]] ; then
+    . "$ehvar_ytdlp_bashcmp_f" && complete -F yt-dlp '__yt_dlp'
+fi
+
 # ========== dev ==========
 # pyenv
 export PATH="${HOME}/projects/pyenv/bin:${PATH}"
