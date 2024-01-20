@@ -89,12 +89,23 @@ function ehbash_vlock ()
                     read -sp "\
 [wrong passwd detected] reintput passwd: " i ;
                 fi
+                echo
                 j=1
             done
+            echo "Bingo!"
         }
         trap '' SIGQUIT SIGTERM SIGKILL SIGINT SIGTSTP
         __vlock__
     )
+}
+
+function ehbash_sshd_init () {
+    echo "Enable SSH daemon mode ..."
+    sshd && \
+        {
+            echo "-- locking interaction ..." ;
+            ehbash_vlock ;
+        }
 }
 
 export PATH="${HOME}/.local/bin:${PATH}"
