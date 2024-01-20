@@ -1,3 +1,4 @@
+# -*- mode: sh; -*-
 _ehbash_func_prev_errp () {
     [[ $? -ne 0 ]]
 }
