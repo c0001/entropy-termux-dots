@@ -1,0 +1,44 @@
+# https://github.com/gpakosz/.tmux
+# (‑●‑●)> dual licensed under the WTFPL v2 license and the MIT license,
+#         without any warranty.
+#         Copyright 2012— Gregory Pakosz (@gpakosz).
+
+# * code
+# ** customizable
+tmux_conf_copy_to_os_clipboard=true
+
+# ** ehome spec
+set -gu prefix2
+unbind C-a
+unbind C-b
+set -g prefix M-3
+bind M-3 send-prefix
+# NOTE: refresh/redraw current client for messy display for occasion
+# such as overflow column truncate in emacs. (note also can use
+# tmux's default `prefix+r' keybinding which will also reload tmux
+# config)
+bind C-g refresh-client
+bind-key -T copy-mode Space send-keys -X begin-selection
+
+# enlarge history
+set -g history-limit 100000
+
+# disable repeaat time while quick switch pane
+set -g repeat-time 0
+
+# ---- disable bell feedback ---
+# disable sound bell
+set -g bell-action none
+# disable visual bell
+#  set -g visual-bell off
+
+# use non-login bash shell as default-command since the login shell
+# will not inherit the current ENV.
+set -g default-command "exec bash"
+
+# enable mouse default
+set -g mouse on
+
+# pane movement
+bind-key j command-prompt -p "join pane from:"  "join-pane -s '%%'"
+bind-key s command-prompt -p "send pane to:"    "join-pane -t '%%'"
