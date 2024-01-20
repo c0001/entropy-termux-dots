@@ -84,10 +84,10 @@ function ehbash_vlock ()
                 if (( j == 0 )) ; then
                     read -p "Input passwd: " i ;
                 else
-                    j=1
                     read -p "\
 [wrong passwd detected] reintput passwd: " i ;
                 fi
+                j=1
             done
         }
         trap '' SIGQUIT SIGTERM SIGKILL SIGINT SIGTSTP
