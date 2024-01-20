@@ -108,12 +108,23 @@ function ehbash_vlock ()
 
 function ehbash_sshd_init () {
     echo "Enable SSH daemon mode ..."
-    if pgrep -x sshd ; then
-        echo "a exist SSHD daemon is running, abort!"
+    if pgrep -x sshd &>/dev/null; then
+        echo "A exist SSHD daemon is running, trying keep aliving ..."
+        local cmd="\
+echo '--> ehbash_alive_sshd ...' && \
+while sleep 30 ; do ! pgrep -x sshd && sshd ; done"
         # keep sshd alive
-        nohup bash -c 'while sleep 60 ; do ! pgrep -x sshd && sshd ; done' \
-            &>/dev/null &
-        return 1
+        if pgrep -af "bash -c ${cmd}" ; then
+            if ! pkill -f "bash -c ${cmd}" ; then
+                _ehbash_func_err "can not kill existed guard, abort!"
+                return 1
+            fi
+        fi
+        if nohup bash -c "$cmd" &>/dev/null & then
+            return 0
+        else
+            return 1
+        fi
     fi
     sshd && \
         {
