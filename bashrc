@@ -50,7 +50,13 @@ function __ehbash_promptcommand () {
     local _last_exit="$?"
     local pb='\[\e[0;32m\]\w\[\e[0m\] \[\e[0;97m\]\[\e[0m\]'
     local px="$ehvar_proxyp"
-    if [[ -n $px ]] ; then
+    if [[ -n $px ]] \
+           || [[ -n $http_proxy  ]] \
+           || [[ -n $HTTP_PROXY  ]] \
+           || [[ -n $https_proxy ]] \
+           || [[ -n $HTTPS_PROXY ]] \
+           || [[ -n $RSYNC_PROXY ]]
+    then
         pb="🌎 ${pb}"
     fi
     local RCol='\[\033[00m\]'
