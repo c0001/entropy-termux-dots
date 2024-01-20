@@ -110,6 +110,9 @@ function ehbash_sshd_init () {
     echo "Enable SSH daemon mode ..."
     if pgrep -x sshd ; then
         echo "a exist SSHD daemon is running, abort!"
+        # keep sshd alive
+        nohup bash -c 'while sleep 60 ; do ! pgrep -x sshd && sshd ; done' \
+            &>/dev/null &
         return 1
     fi
     sshd && \
