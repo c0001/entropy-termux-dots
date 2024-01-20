@@ -80,11 +80,13 @@ function ehbash_vlock ()
         function __vlock__ ()
         {
             local pass='passwd1234' i j=0
+            echo "\
+========== current tty is locked, please input password to unlock it =========="
             while [[ $i != "$pass" ]]; do
                 if (( j == 0 )) ; then
-                    read -p "Input passwd: " i ;
+                    read -sp "Input passwd: " i ;
                 else
-                    read -p "\
+                    read -sp "\
 [wrong passwd detected] reintput passwd: " i ;
                 fi
                 j=1
