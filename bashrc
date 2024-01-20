@@ -74,6 +74,27 @@ function ehbash_reload_bashrc () {
         echo err
 }
 
+function ehbash_vlock ()
+{
+    (
+        function __vlock__ ()
+        {
+            local pass='passwd1234' i j=0
+            while [[ $i != "$pass" ]]; do
+                if (( j == 0 )) ; then
+                    read -p "Input passwd: " i ;
+                else
+                    j=1
+                    read -p "\
+[wrong passwd detected] reintput passwd: " i ;
+                fi
+            done
+        }
+        trap '' SIGQUIT SIGTERM SIGKILL SIGINT SIGTSTP
+        __vlock__
+    )
+}
+
 export PATH="${HOME}/.local/bin:${PATH}"
 export PATH="${HOME}/.cargo/bin:${PATH}"
 
