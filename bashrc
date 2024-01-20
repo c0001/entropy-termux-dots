@@ -101,6 +101,10 @@ function ehbash_vlock ()
 
 function ehbash_sshd_init () {
     echo "Enable SSH daemon mode ..."
+    if pgrep -x sshd ; then
+        echo "a exist SSHD daemon is running, abort!"
+        return 1
+    fi
     sshd && \
         {
             echo "-- locking interaction ..." ;
