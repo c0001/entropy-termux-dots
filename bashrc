@@ -126,7 +126,8 @@ while sleep 30 ; do ! pgrep -x sshd && sshd ; done"
             return 1
         fi
     fi
-    sshd && \
+    termux-wake-lock && \
+        sshd && \
         {
             echo "-- locking interaction ..." ;
             ehbash_vlock ;
