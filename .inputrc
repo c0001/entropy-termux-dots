@@ -1,0 +1,14 @@
+# ========== The powerful readline(3) configuration ==========
+
+# do not bell on tab-completion
+set bell-style none
+
+# ignore case match so that path can be matched for lowcase to
+# uppercase as well
+set completion-ignore-case on
+
+# use emacs keymap as default
+set keymap emacs
+
+# include system configurations
+$include  /data/data/com.termux/files/usr/etc/inputrc
