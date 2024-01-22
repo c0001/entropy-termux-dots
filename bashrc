@@ -134,8 +134,15 @@ while sleep 30 ; do ! pgrep -x sshd && sshd ; done"
         }
 }
 
-export PATH="${HOME}/.local/bin:${PATH}"
-export PATH="${HOME}/.cargo/bin:${PATH}"
+if [[ ! $PATH =~ "${HOME}/.local/bin" ]] ; then
+    export PATH="${HOME}/.local/bin:${PATH}"
+fi
+if [[ ! $PATH =~ "${HOME}/.cargo/bin" ]] ; then
+    export PATH="${HOME}/.cargo/bin:${PATH}"
+fi
+if [[ ! $PATH =~ "${HOME}/go/bin" ]] ; then
+    export PATH="${HOME}/go/bin:${PATH}"
+fi
 
 # ========== completion ==========
 
