@@ -177,3 +177,10 @@ if command -v navi &>/dev/null ; then
     _ehbash_func_nerr \
         "navi env initial with fatal"
 fi
+
+# ========== startup ==========
+
+# we always lock the termux native tty if we are not a ssh connection.
+if [[ -z $SSH_CLIENT ]] ; then
+    ehbash_vlock
+fi
