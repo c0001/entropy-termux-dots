@@ -180,6 +180,9 @@ fi
 
 # ========== startup ==========
 
+export MPD_HOST=localhost
+export MPD_PORT=9688
+
 # we always lock the termux native tty if we are not a ssh connection.
 if [[ -z $SSH_CLIENT ]] ; then
     ehbash_vlock

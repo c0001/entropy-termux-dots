@@ -1,0 +1,28 @@
+# * code
+# ** basic
+music_directory	"~/Music"
+playlist_directory "~/Music/MPD-DATABASE/mpd_playlists"
+sticker_file "~/Music/MPD-DATABASE/mpd_sticker.sql"
+db_file "~/Music/MPD-DATABASE/mpd_tag_cache"
+pid_file "~/Music/MPD-DATABASE/mpd_pid"
+state_file "~/Music/MPD-DATABASE/mpd_state"
+
+# ** server host
+bind_to_address "any"
+port            "9688"
+
+# ** misc.
+log_file "/dev/null"
+metadata_to_use	"artist,album,title,track,name,genre,date,disc,albumartist,composer,musicbrainz_albumid"
+filesystem_charset "UTF-8"
+
+# ** audio_output
+# audio_output {
+#   type "pulse"
+#   name "Output"
+# }
+
+# ** input
+input {
+      plugin "curl"
+}
