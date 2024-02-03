@@ -187,3 +187,18 @@ export MPD_PORT=9688
 if [[ -z $SSH_CLIENT ]] ; then
     ehbash_vlock
 fi
+
+function __ehbash_prevrtn_okp ()
+{
+    local prev="$?"
+    if type -tP ee >/dev/null ; then
+        echo -e "\e[31mCommand 'ee' is found, but it's aliased.\e[0m"
+        return 1
+    fi
+    if [[ $prev -eq 0 ]] ; then
+        echo -e "\e[32mOk prev checked as success: ${prev}\e[0m"
+    else
+        echo -e "\e[31mErr prev checked as fatal: ${prev}\e[0m"
+    fi
+}
+alias ee='__ehbash_prevrtn_okp'
