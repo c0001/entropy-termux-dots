@@ -43,7 +43,7 @@ function ehpunset () {
 function ehwebdav_share () {
     rclone serve webdav --addr '192.168.3.191:8090' \
            --user test --pass "${1:-XKxuiuGaVAGuBAOn}" \
-           '/storage/7DAC-E74A/'
+           "${1:?err: No share path given!}"
 }
 
 function __ehbash_promptcommand () {
@@ -84,16 +84,22 @@ function ehbash_reload_bashrc () {
 function ehbash_vlock ()
 {
     (
+        set +e
         function __vlock__ ()
         {
             local pass='passwd1234' i j=0
             echo "\
 ========== current tty is locked, please input password to unlock it =========="
+            # FIXME: use 'sleep' and Nchar reading return to reject
+            # tty's infinitely stdin streaming while termux sleep or
+            # turned into background which made high cpu while this
+            # vlock.
             while [[ $i != "$pass" ]]; do
+                echo "verifying ..." ; sleep 4
                 if (( j == 0 )) ; then
-                    read -sp "Input passwd: " i ;
+                    read -N 10 -sp "Input passwd: " i ;
                 else
-                    read -sp "\
+                    read -N 10 -sp "\
 [wrong passwd detected] reintput passwd: " i ;
                 fi
                 echo
@@ -126,8 +132,7 @@ while sleep 30 ; do ! pgrep -x sshd && sshd ; done"
             return 1
         fi
     fi
-    termux-wake-lock && \
-        sshd && \
+    sshd && \
         {
             echo "-- locking interaction ..." ;
             ehbash_vlock ;
@@ -184,7 +189,10 @@ export MPD_HOST=localhost
 export MPD_PORT=9688
 
 # we always lock the termux native tty if we are not a ssh connection.
-if [[ -z $SSH_CLIENT ]] ; then
+if [[ -z $SSH_CLIENT ]] && \
+       [[ -z $SSH_CONNECTION ]] && \
+       [[ -z $SSH_TTY ]]
+then
     ehbash_vlock
 fi
 
