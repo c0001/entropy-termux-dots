@@ -42,8 +42,8 @@ function ehpunset () {
 
 function ehwebdav_share () {
     rclone serve webdav --addr '192.168.3.191:8090' \
-           --user test --pass "${1:-XKxuiuGaVAGuBAOn}" \
-           "${1:?err: No share path given!}"
+           --user test --pass "${2:-XKxuiuGaVAGuBAOn}" \
+           "${1:?err: No share path given for '\$1'!}"
 }
 
 function __ehbash_promptcommand () {
